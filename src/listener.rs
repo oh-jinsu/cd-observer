@@ -47,7 +47,11 @@ impl Listener for ListenerImpl  {
             stream.flush()?;
           }
           Err(e) => {
-            println!("{}", e);
+            println!("{:?}", e);
+            
+            stream.write(b"HTTP/1.1 500 INTERNAL SERVER ERROR\r\n\r\n")?;
+
+            stream.flush()?;
           }
         }
       }
